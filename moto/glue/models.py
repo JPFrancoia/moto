@@ -20,7 +20,7 @@ class GlueBackend(BaseBackend):
     def __init__(self):
         self.databases = OrderedDict()
 
-    def create_database(self, database_name):
+    def create_database(self, database_name, region_name):
         if database_name in self.databases:
             raise DatabaseAlreadyExistsException()
 
@@ -68,9 +68,10 @@ class GlueBackend(BaseBackend):
 
 
 class FakeDatabase(BaseModel):
-    def __init__(self, database_name):
+    def __init__(self, database_name, region_name):
         self.name = database_name
         self.tables = OrderedDict()
+        self.region_name = region_name
 
 
 class FakeTable(BaseModel):
