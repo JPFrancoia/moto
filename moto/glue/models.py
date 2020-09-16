@@ -24,7 +24,7 @@ class GlueBackend(BaseBackend):
         if database_name in self.databases:
             raise DatabaseAlreadyExistsException()
 
-        database = FakeDatabase(database_name)
+        database = FakeDatabase(database_name, region_name)
         self.databases[database_name] = database
         return database
 
