@@ -17,14 +17,18 @@ from .exceptions import (
 
 
 class GlueBackend(BaseBackend):
-    def __init__(self):
+    region_name = None
+
+    def __init__(self, region_name=None):
+        if region_name is not None:
+            self.region_name = region_name
         self.databases = OrderedDict()
 
-    def create_database(self, database_name, region_name):
+    def create_database(self, database_name):
         if database_name in self.databases:
             raise DatabaseAlreadyExistsException()
 
-        database = FakeDatabase(database_name, region_name)
+        database = FakeDatabase(database_name, self.region_name)
         self.databases[database_name] = database
         return database
 
